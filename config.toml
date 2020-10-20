@@ -48,12 +48,12 @@ disqusShortname = ""
       url = "#"
 
     [[params.navigation.links]]
+      name = "Curriculum Vitae"
+      url = "blogs/cv"
+      
+    [[params.navigation.links]]
       name = "Blogs"
       url = "blogs"
-
-    [[params.navigation.links]]
-      name = "Generic Blog"
-      url = "blogs/ipsum"
 
     #[[params.navigation.links]]
     #  name = "Elements"
@@ -83,7 +83,6 @@ disqusShortname = ""
     # the 'static/img' folder.
     title = "Hi, my name is Sebastian"
     subtitle = "THIS IS A BRIEF DESCRIPTION ABOUT ME AND SOME PROJECTS I DEVELOPED WITH MY STUDY GROUP"
-    image = "banner.jpg"
     buttonText = "Get Started"
 
 
@@ -93,40 +92,40 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "Aliquam"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic01.jpg"
-      url = "blogs/aliquam"
+      title = "Curriculum Vitae"
+      subtitle = "My experience"
+      image = "cv.jpg"
+      url = "blogs/cv"
 
     [[params.tiles.showcase]]
-      title = "Tempus"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic02.jpg"
-      url = "blogs/tempus"
+      title = "What about Youth's Health?"
+      subtitle = "Weight vs Excercise "
+      image = "exercise.jpg"
+      url = "blogs/health"
 
     [[params.tiles.showcase]]
-      title = "Magna"
-      subtitle = "Lorem Etiam Nullam"
-      image = "pic03.jpg"
-      url = "blogs/magna"
+      title = "Do men earn more than women?"
+      subtitle = "Statistical analysis"
+      image = "wage.jpg"
+      url = "blogs/salary"
 
     [[params.tiles.showcase]]
-      title = "Ipsum"
-      subtitle = "Nisl Sed Aliquam"
-      image = "pic04.jpg"
-      url = "blogs/ipsum"
+      title = "Temperature Anomalies and Climate Change"
+      subtitle = "Is there any relationship?"
+      image = "temperature.jpg"
+      url = "blogs/climate"
 
     [[params.tiles.showcase]]
-      title = "Consequat"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
+      title = "COVID-19"
+      subtitle = "Morbidity analysis"
+      image = "covid19.jpg"
+      url = "blogs/covid19"
 
     [[params.tiles.showcase]]
-      title = "Etiam"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic06.jpg"
-      url = "blogs/ipsum"
+      title = "GDP analysis"
+      subtitle = "Colombia"
+      image = "colombia.jpg"
+      url = "blogs/gdp"
     # You can make more showcases by copy and pasting the code above
 
   [params.blog]
@@ -139,12 +138,11 @@ disqusShortname = ""
   # Section Type Two
   [params.two]
     enable = true
-    title = "Massa libero"
-    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
-    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
-    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
-    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
-    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
+    title = "Projects"
+    subtitle = """During my first 5 week as an MFA student at LBS, 
+    I developed several tasks for my data analytics course,
+    here I present some of the analysis which were the most interesting for me.
+    Hope you enjoy them."""
     buttonText = "Get Started"
     url = "blogs"
 
@@ -173,47 +171,47 @@ disqusShortname = ""
     # by copying the corresponding map with frontmatter code.
     [[params.contact.email]]
     title = "Email"
-    email = "example@domain.com"
+    email = "sebastianv.mfa2021@london.edu"
 
     [[params.contact.phone]]
     title = "Phone"
-    phone = "(000) 000-0000 x1234"
+    phone = "(+44) 75-4538-4592"
 
     [[params.contact.address]]
-    title = "Address"
-    street = "Street"
-    city = "City, ST 00000"
-    country = "Country"
+    title = "London Business School"
+    street = "Regent's Park"
+    city = "London, NW1 4SA"
+    country = " United Kingdom"
 
   # Footer section
   [params.footer]
     enable = true
-    copyright = "Company Name"
+    copyright = "London Business School"
 
     # Uses font awesome icons
-    [[params.footer.social]]
-      icon = "fa-twitter"
-      url= "https://www.twitter.com"
-      label = "Twitter"
+    #[[params.footer.social]]
+    # icon = "fa-twitter"
+    # url= "https://www.twitter.com"
+    # label = "Twitter"
 
     [[params.footer.social]]
       icon = "fa-facebook"
-      url= "https://www.facebook.com"
+      url= "https://www.facebook.com/juansebastian.vargasrivera/"
       label = "Facebook"
 
     [[params.footer.social]]
       icon = "fa-instagram"
-      url= "https://www.instagram.com"
+      url= "https://www.instagram.com/jvargas036/?hl=es"
       label = "Instagram"
     
     [[params.footer.social]]
       icon = "fa-github"
-      url= "https://www.github.com"
+      url= "https://github.com/sebastianvmfa"
       label = "GitHub"
 
     [[params.footer.social]]
       icon = "fa-linkedin"
-      url= "https://www.linkedin.com"
+      url= "https://www.linkedin.com/in/jsvargasr/"
       label = "LinkedIn"
 
     [[params.footer.quicklinks]]
