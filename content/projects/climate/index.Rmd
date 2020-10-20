@@ -205,10 +205,9 @@ formula_ci <- comparison %>%
 
 #print out formula_CI
 formula_ci %>% 
-  select(mean_delta, sd_delta, count, se_delta, CI_lower, CI_upper) %>% 
-  kable %>% 
-  kable_styling()
+  select(mean_delta, sd_delta, count, se_delta, CI_lower, CI_upper)
+
 ```
 
 
-Lastly, the confidence intervals showcase that, on average, the temperature is approximately +0.966 degrees than the temperature of the base period. Additionally, the data allows us to claim that under a 95% confidence interval the values of delta will range between (+0.923 and +1.01). Hence, we must worry about climate change and how we can reduce it significantly. 
+Finally, the confidence intervals showcase that, on average, the temperature is approximately +0.966 degrees than the temperature of the base period. Additionally, the data allows us to claim that under a 95% confidence interval the values of delta will range between (+0.923 and +1.01). Hence, we must worry about climate change and how we can reduce it significantly. 
