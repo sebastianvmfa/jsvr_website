@@ -1,0 +1,282 @@
+---
+title: "What about Youth's Health?"
+author: "Weight vs Excercise Analysis"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(tidyquant)
+```
+
+
+# Youth Risk Behavior Surveillance
+
+Along this work we will analyze health patters from high schoolers (9th through 12th grade) using the data from the [Youth Risk Behavior Surveillance System (YRBSS)](https://www.cdc.gov/healthyyouth/data/yrbs/index.htm) survey. 
+
+## Load the data
+
+Firstly, we load and inspect it using the function `glimpe`. There are observations on 13 different variables, some categorical and some numerical. The meaning of each variable can be found by bringing up the help file in the R console:
+
+```{r}
+#Load the data
+data(yrbss)
+#Inspect the data
+glimpse(yrbss)
+```
+
+Before we carry on with our analysis, we check if there is any missing values on the dataframa, and compute the summary of statistcs and a rough histogram for each variable using the function `skimr::skim()`.
+
+```{r}
+#Skim the data 
+skimr::skim(yrbss)
+```
+
+As shown in the table above, all the variables have missing information, with the highest number of missing values in the race variable. The missing information is probably because some people don't feel comfortable when giving some personal information, such as race or weight. Finally, looking at the rough histograms we can see that the age is negative skewed, while weight is positive skewed. On the other hand, height is distributed along the center, but hours of sleep and strength training have a multi-modal distribution.
+
+## Exploratory Data Analysis
+
+We will first analyze the `weight`of participants in kilograms. But taking into account that there are 1004 missing values (see the table above), we first filter the data to not include this missing information on the analysis. Then, we create the histogram for high schoolers' weight using the `ggplot`function.
+
+
+```{r, eda_on_weight}
+
+#Tidy the data by filtering the non-missing values
+data_tidy <- yrbss %>% 
+  filter(weight != "NA")
+
+#Create the graph
+ggplot(data_tidy, mapping = aes(x=weight)) + 
+  geom_density()+
+  theme_minimal()+
+  #Add labels
+  labs(title = "Weight Distribution", 
+       subtitle = "Positively-skewed distribution", 
+       x = "Weight (Kg)", 
+       y = "Density")+
+  theme(plot.title = element_text(face = "bold", size = 20),
+          plot.subtitle = element_text(size = 15),
+          axis.title = element_text(size = 10),
+          axis.text = element_text(size = 10))
+```
+
+Next, we obtained the main statistics for the weight using the `summary` function:
+
+```{r}
+#computing statistics
+summary(data_tidy$weight)
+```
+
+The mean value for the weight of high school students is 67.9 kg, with a maximun value of 181 kg and a minimum of 29.9 kg. 
+
+Afterwards, we consider the possible relationship between a high schooler’s weight and their physical activity. Hence, we create the graph between the weight of the students and the number of days were they did physical activity for 60+ minutes in the last week.
+
+```{r}
+#Create the graph
+ggplot(data_tidy, mapping = aes(x = weight, y = physically_active_7d))+
+  geom_point()+
+  theme_minimal()+
+  #Add labels
+  labs(title = "Weight vs Physical Activity", 
+       subtitle = "Relationship between the two", 
+       x = "Weight (Kg)", 
+       y = "Days of activity per week")+
+  theme(plot.title = element_text(family = "Times New Roman", face = "bold", size = (18)),
+          axis.title = element_text(family = "Times New Roman", size = (10)),
+          axis.text = element_text(family = "Times New Roman", size = (10)))
+
+```
+
+However, looking at the graph there is no clear relationship between these two variables, probably for the multimodal distribution that `physically_active_7d` has.Therefore, we decide to create a new variable `physical_3plus`, which will be `yes` if they are physically active for at least 3 days a week, and `no` otherwise.
+
+  
+```{r}
+yrbss <- yrbss %>% 
+  #Create a new variable call physical_3plus to know if they are physically active for at least 3 days a week.
+  mutate(physical_3plus = ifelse(physically_active_7d >= 3, "yes", "no"))
+
+#Filter the missing values
+yrbss %>% filter(!is.na(physical_3plus)) %>% 
+  group_by(physical_3plus) %>% 
+  #Summarizing the data
+  summarise(count = n()) %>% 
+  #Estimating the proportion of yes and no
+  mutate(prop= count/sum(count))
+
+```
+Approximately the 60% of students do physical activities for at least 3 times a week. We estimate a 95% confidence interval of the number of active days for the population proportion of high schools that are *NOT* active 3 or more days per week.
+
+```{r}
+yrbss %>%
+  group_by(physical_3plus) %>%
+  #Filter by students that are not active 3+ days per week
+  filter(physical_3plus == "no") %>% 
+  #Estimate confidence interval
+  summarise(mean_3less = mean(physically_active_7d, na.rm = TRUE),
+            sd_3less = sd(physically_active_7d, na.rm=TRUE),
+            count = n(),
+            se_3less = sd_3less/sqrt(count),
+            t_critical = qt(0.975, count-1), 
+            margin_of_error = t_critical * se_3less,
+            lower = mean_3less - t_critical * se_3less,
+            upper = mean_3less + t_critical * se_3less
+            )
+
+```
+
+As shown in the table above, the confidence interval for the high schoolers who are not active 3+ days per week is [0.770, 0.821] days. With a mean value of 0.795 days, that means that students most of students on this category make exercise less than one day a week. 
+
+Then, we make a boxplot of `physical_3plus` vs. `weight` to see if there is a negative correlation between these two variables. In other words, we will evaluate if the students who don't exercise 3+ days a week weigh more than the students who do it.
+
+```{r, boxplot}
+#Create the grph
+yrbss_boxplot <- yrbss %>% 
+  filter(!is.na(physical_3plus), !is.na(weight)) %>%
+  ggplot(aes(x=physical_3plus, y=weight)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(plot.title = element_text(face="bold")) +
+  #Add labels
+  labs(title = "Weight and Physical Activity", 
+       subtitle = "Increased level of physical activity means heavier people", 
+       y = "Weight (Kg)", 
+       x = "Physical activity") +
+  theme(plot.title = element_text(face = "bold", size = 20),
+          plot.subtitle = element_text(size = 15),
+          axis.title = element_text(size = 10),
+          axis.text = element_text(size = 10)) +
+  NULL
+
+yrbss_boxplot
+```
+
+However, by looking at the graph above students who exercise more are heavier which could be due to the fact of the higher density and weight of muscle. 
+
+## Confidence Interval
+
+Boxplots show how the medians of the two distributions compare, but we can also compare the means of the distributions using either a confidence interval or a hypothesis test. Below, we estimate the confidence interval for the two factors (exercise 3+ days per week or not).
+
+```{r}
+yrbss %>%
+  group_by(physical_3plus) %>%
+  filter(!is.na(physical_3plus)) %>% 
+  #Estimate confidence interval
+  summarise(mean_weight = mean(weight, na.rm = TRUE),
+            sd_weight = sd(weight, na.rm=TRUE),
+            count = n(),
+            se_weight = sd_weight/sqrt(count),
+            t_critical = qt(0.975, count-1), 
+            margin_of_error = t_critical * se_weight,
+            lower = mean_weight - t_critical * se_weight,
+            upper = mean_weight + t_critical * se_weight
+            )
+
+```
+
+There is an observed difference of about 1.77kg (68.44 - 66.67), and we notice that the two confidence intervals do not overlap. It seems that the difference is at least 95% statistically significant. Let us also conduct a hypothesis test.
+
+## Hypothesis test with formula
+
+For making the hypothesis test with a 95% of statistically significant, we compare the means using the t-distribution, where the null hypothesis is if the difference of  the means for the two factors (exercise 3+ day per week or not) is equal to zero.
+
+```{r}
+#Hypothesis test
+t.test(weight ~ physical_3plus, data = yrbss)
+```
+
+When we look at the p-value of the t-test it is less than the significance level (5%). Hence, we reject the null hypothesis and we can conclude that the difference of the means is different from zero. Therefore, there is strong statistical evidence to asseverate that the weight of high schoolers who train 3+ days per week is greater than the students who don't do it.
+
+## Hypothesis test with `infer`
+
+Subsequently, we will introduce a new function, `hypothesize`, that falls into the infer workflow. This function also conducting hypothesis tests.
+
+But first, we need to initialize the test, which we will save as `obs_diff`.
+
+```{r}
+#Initialize the test
+obs_diff <- yrbss %>%
+  specify(weight ~ physical_3plus) %>%
+  calculate(stat = "diff in means", order = c("yes", "no"))
+
+```
+
+
+The statistic you are searching for is the difference in means, with the order being yes - no != 0. After we have initialized the test, we need to simulate the test on the null distribution, which we will save as null.
+
+
+```{r}
+null_dist <- yrbss %>%
+  specify(weight ~ physical_3plus) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("yes", "no"))
+
+```
+
+
+Here, `hypothesize` is used to set the null hypothesis as a test for independence, i.e., that there is no difference between the two population means. Also, the `type` argument within generate is set to permute, which is the argument when generating a null distribution for a hypothesis test.
+
+We can visualize this null distribution with the following code:
+
+```{r}
+ggplot(data = null_dist, aes(x = stat)) +
+  geom_histogram() +
+  labs(title = "Null Distribution Histogram") +
+  theme(plot.title = element_text(face = "bold", size = 20))
+
+```
+
+
+Now that the test is initialized and the null distribution formed, we can visualise to see how many of these null permutations have a difference of at least `obs_stat` of `r obs_diff %>% pull() %>% round(2)`?
+
+We can also calculate the p-value for our hypothesis test using the function `infer::get_p_value()`.
+
+```{r}
+
+null_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff, direction = "two-sided") + 
+  theme(plot.title = element_text(face = "bold", size = 20))
+
+null_dist %>%
+  get_p_value(obs_stat = obs_diff, direction = "two_sided") 
+
+```
+
+As you can see, using this the standard workflow we obtained the same result as with the previous calculations, the p-value is near to zero and therefore we reject the null hypothesis and determine that the mean of the weight for students who exercise 3+ day peer week is greater than students who don't do it. This results, as commented before is probably due to the fact of the students who train has higher density and weight of muscle.

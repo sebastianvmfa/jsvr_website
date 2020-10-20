@@ -99,9 +99,9 @@ disqusShortname = ""
 
     [[params.tiles.showcase]]
       title = "What about Youth's Health?"
-      subtitle = "Weight vs Excercise "
+      subtitle = "Weight vs Excercise"
       image = "exercise.jpg"
-      url = "blogs"
+      url = "projects/health"
 
     [[params.tiles.showcase]]
       title = "Do men earn more than women?"
