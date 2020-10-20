@@ -2,13 +2,13 @@
 categories:
 - ""
 - ""
-date: "2017-10-31T21:28:43-05:00"
-description: ""
+date: "2020-10-20"
+description: "About me"
 draft: false
-image: pic10.jpg
+image: graduation.jpg
 keywords: ""
-slug: ipsum
-title: Ipsum
+slug: XX
+title: About me
 ---
 
-Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.
+Hello, my name is Juan Sebastian Vargas. I'm a recently graduated Mechanical and Industrial Engineer from Los Andes University, Colombia. My parents are my biggest proud and my family my biggest motivation. 

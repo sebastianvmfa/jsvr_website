@@ -48,8 +48,8 @@ disqusShortname = ""
       url = "#"
 
     [[params.navigation.links]]
-      name = "Curriculum Vitae"
-      url = "blogs/cv"
+      name = "About me"
+      url = "blogs/me"
       
     [[params.navigation.links]]
       name = "Blogs"
@@ -92,10 +92,10 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "Curriculum Vitae"
+      title = "About me"
       subtitle = "My experience"
       image = "cv.jpg"
-      url = "blogs"
+      url = "blogs/blog1"
 
     [[params.tiles.showcase]]
       title = "What about Youth's Health?"
