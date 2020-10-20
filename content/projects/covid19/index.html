@@ -15,7 +15,7 @@ output:
 
 
 
-<p>Let us revisit the <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf">CDC Covid-19 Case Surveillance Data</a>.</p>
+<p>Regarding the difficult situation that the whole world is living due to this pandemic, is important to make some statistical analysis about the morbidity rate of this desease. First of all, we downloaded the data from the <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf">CDC Covid-19 Case Surveillance Data</a></p>
 <pre class="r"><code># file contains 11 variables and 3.66m rows and is well over 380Mb. 
 # It will take time to download
 
@@ -24,8 +24,10 @@ url &lt;- &quot;https://data.cdc.gov/api/views/vbim-akqf/rows.csv?accessType=DOW
 
 covid_data &lt;- vroom::vroom(url) %&gt;% # If vroom::vroom(url) doesn&#39;t work, use read_csv(url)
   clean_names()</code></pre>
-<p>Given the data we have, I would like you to produce two graphs that show death % rate:
-1. by age group, sex, and whether the patient had co-morbidities or not</p>
+<p>Given the data we have, I would like you to produce two graphs that show death % rate:</p>
+<ol style="list-style-type: decimal">
+<li>by age group, sex, and whether the patient had co-morbidities or not</li>
+</ol>
 <pre class="r"><code>#create dataset for Covid death % by age group, sex and presence of co-morbidities
 covid_data_comorbidities &lt;- covid_data %&gt;% 
 #clean the dataset to get rid of the missing values 
@@ -54,8 +56,10 @@ ggplot(covid_data_comorbidities, aes(x = death_rate, y = age_group)) +
   theme(plot.title = element_text(size = 11)) +
   NULL</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>As you can evidence, there is a strong difference on the morbidity rate between the people who had a co-morbidity and people who didn’t. And the difference increases considerably for people over 40 years old. Moreover, we can evidence that in average men are more susceptible to died by covid-19 in comparison with women, specially if they have a co-morbidity before.</p>
+<p>Next, we proceed to create the second graph with the following variables:</p>
 <ol start="2" style="list-style-type: decimal">
-<li>by age group, sex, and whether the patient was admited to Intensive Care Unit (ICU) or not.</li>
+<li>by age group, sex, and whether the patient was admitted to Intensive Care Unit (ICU) or not.</li>
 </ol>
 <pre class="r"><code>#create dataset for Covid death % by age group, sex and whether patient was admitted to ICU
 covid_data_icu &lt;- covid_data %&gt;%
@@ -83,3 +87,4 @@ ggplot(covid_data_icu, aes(x = death_rate, y = age_group)) +
   theme(plot.title = element_text(size = 11)) +
   NULL</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Finally, when looking at the last graph is very worrying to see how the death rate increases when someone is admitted to ICU. The rate for people over 80 years old is almost 80% regardless of their sex. Moreover, we arriave to the same conclution as the first graph, that men are more susceptible to died by covid-19 than women. Therefore, analyzing the data the governments should pay special attention to the patients which are accepted to ICU and try to reduce this proportion significantly to save more lives.</p>

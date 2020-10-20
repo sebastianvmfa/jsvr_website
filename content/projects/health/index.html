@@ -38,7 +38,7 @@ glimpse(yrbss)</code></pre>
 ## $ hours_tv_per_school_day  &lt;chr&gt; &quot;5+&quot;, &quot;5+&quot;, &quot;5+&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5+&quot;, &quot;5+&quot;, &quot;5+&quot;…
 ## $ strength_training_7d     &lt;int&gt; 0, 0, 0, 0, 1, 0, 2, 0, 3, 0, 3, 0, 0, 7, 7,…
 ## $ school_night_hours_sleep &lt;chr&gt; &quot;8&quot;, &quot;6&quot;, &quot;&lt;5&quot;, &quot;6&quot;, &quot;9&quot;, &quot;8&quot;, &quot;9&quot;, &quot;6&quot;, &quot;&lt;5…</code></pre>
-<p>Before we carry on with our analysis, we check if there is any missing values on the dataframa, and compute the summary of statistcs and a rough histogram for each variable using the function <code>skimr::skim()</code>.</p>
+<p>Before we carry on with our analysis, we check if there is any missing values on the dataframe, and compute the summary of statistics and a rough histogram for each variable using the function <code>skimr::skim()</code>.</p>
 <pre class="r"><code>#Skim the data 
 skimr::skim(yrbss)</code></pre>
 <table>
@@ -264,7 +264,7 @@ skimr::skim(yrbss)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>As shown in the table above, all the variables have missing information, with the highest number of missing values in the race variable. The missing information is probably because some people don’t feel comfortable when giving some personal information, such as race or weight. Finally, looking at the rough histograms we can see that the age is negative skewed, while weight is positive skewed. On the other hand, height is distributed along the center, but hours of sleep and strength training have a multi-modal distribution.</p>
+<p>As shown in the tables above, all the variables have missing information, with the highest number of missing values in the race variable. The missing information is probably because some people don’t feel comfortable when giving some personal information, such as race or weight. Finally, looking at the rough histograms we can see that the age is negative skewed, while weight is positive skewed. On the other hand, height is distributed along the center, but hours of sleep and strength training have a multi-modal distribution.</p>
 </div>
 <div id="exploratory-data-analysis" class="section level2">
 <h2>Exploratory Data Analysis</h2>
@@ -307,7 +307,7 @@ ggplot(data_tidy, mapping = aes(x = weight, y = physically_active_7d))+
           axis.title = element_text(family = &quot;Times New Roman&quot;, size = (10)),
           axis.text = element_text(family = &quot;Times New Roman&quot;, size = (10)))</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>However, looking at the graph there is no clear relationship between these two variables, probably for the multimodal distribution that <code>physically_active_7d</code> has.Therefore, we decide to create a new variable <code>physical_3plus</code>, which will be <code>yes</code> if they are physically active for at least 3 days a week, and <code>no</code> otherwise.</p>
+<p>However, looking at the graph there is no clear relationship between these two variables, probably for the multimodal distribution that <code>physically_active_7d</code> has. Therefore, we decide to create a new variable <code>physical_3plus</code>, which will be <code>yes</code> if they are physically active for at least 3 days a week, and <code>no</code> otherwise.</p>
 <pre class="r"><code>yrbss &lt;- yrbss %&gt;% 
   #Create a new variable call physical_3plus to know if they are physically active for at least 3 days a week.
   mutate(physical_3plus = ifelse(physically_active_7d &gt;= 3, &quot;yes&quot;, &quot;no&quot;))
@@ -324,7 +324,7 @@ yrbss %&gt;% filter(!is.na(physical_3plus)) %&gt;%
 ##   &lt;chr&gt;          &lt;int&gt; &lt;dbl&gt;
 ## 1 no              4404 0.331
 ## 2 yes             8906 0.669</code></pre>
-<p>Approximately the 60% of students do physical activities for at least 3 times a week. We estimate a 95% confidence interval of the number of active days for the population proportion of high schools that are <em>NOT</em> active 3 or more days per week.</p>
+<p>Approximately the 60% of students do physical activities for at least 3 times a week. We estimate a 95% confidence interval of the number of active days for the population proportion of high schoolers that are <em>NOT</em> active 3 or more days per week.</p>
 <pre class="r"><code>yrbss %&gt;%
   group_by(physical_3plus) %&gt;%
   #Filter by students that are not active 3+ days per week

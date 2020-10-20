@@ -15,10 +15,11 @@ output:
 
 
 
-<p>At the last board meeting of Omega Group Plc., the headquarters of a large multinational company, the issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted.</p>
-<p>You are asked to carry out the analysis. The objective is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor.</p>
+<p>At the last board meeting of <a href="https://www.omegaplc.co.uk">Omega Group Plc.</a>, the headquarters of a large multinational company, the issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted.</p>
+<p>The objective of this analysis is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor.</p>
 <div id="loading-the-data" class="section level2">
 <h2>Loading the data</h2>
+<p>First, we load the data from the csv file.</p>
 <pre class="r"><code>omega &lt;- read_csv(here::here(&quot;content/projects/salary/data&quot;, &quot;omega.csv&quot;))
 glimpse(omega) # examine the data frame</code></pre>
 <pre><code>## Rows: 50
@@ -26,11 +27,11 @@ glimpse(omega) # examine the data frame</code></pre>
 ## $ salary     &lt;dbl&gt; 81894, 69517, 68589, 74881, 65598, 76840, 78800, 70033, 63…
 ## $ gender     &lt;chr&gt; &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;m…
 ## $ experience &lt;dbl&gt; 16, 25, 15, 33, 16, 19, 32, 34, 1, 44, 7, 14, 33, 19, 24, …</code></pre>
+<p>As you can see, there are three variables in the data set: salary, gender and experience.</p>
 </div>
 <div id="relationship-salary---gender" class="section level2">
 <h2>Relationship Salary - Gender ?</h2>
-<p>The data frame <code>omega</code> contains the salaries for the sample of 50 executives in the company.
-We can calculate summary statistics on salary by gender.</p>
+<p>The data frame <code>omega</code> contains the salaries for the sample of 50 executives in the company. We can calculate summary statistics on salary by gender.</p>
 <pre class="r"><code># Summary Statistics of salary by gender
 mosaic::favstats (salary ~ gender, data=omega)</code></pre>
 <pre><code>##   gender   min    Q1 median    Q3   max  mean   sd  n missing
@@ -57,7 +58,7 @@ my_omega</code></pre>
 ## 1 female      64543.     7567.    26       2.06     1484.        3056.   61486.
 ## 2 male        73239.     7463.    24       2.07     1523.        3151.   70088.
 ## # … with 1 more variable: CI_upper &lt;dbl&gt;</code></pre>
-<p>As we can see from the data above the confidence intervals for male and female do not overlap. This means that there is a statistically difference between the salary of men and women at Omega.</p>
+<p>As we can see from the data the mean salary for men and women is 73.239 and 64.542 USD per year respectively. Also, is important to point out that the confidence intervals for male and female do not overlap. This means that there is a statistically difference between the salary of men and women at Omega.</p>
 <p>We can also run a hypothesis testing, assuming as a null hypothesis that the mean difference in salaries is zero, or that, on average, men and women make the same amount of money.</p>
 <pre class="r"><code># hypothesis testing using t.test() 
 t.test(salary~gender, omega)</code></pre>
@@ -94,7 +95,7 @@ null_omega</code></pre>
 </div>
 <div id="relationship-experience---gender" class="section level2">
 <h2>Relationship Experience - Gender?</h2>
-<p>At the board meeting, someone raised the issue that there was indeed a substantial difference between male and female salaries, but that this was attributable to other reasons such as differences in experience. A questionnaire send out to the 50 executives in the sample reveals that the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average (see table below).</p>
+<p>However, is important to understand if the results present above were attributable to other reasons such as differences in experience. A questionnaire send out to the 50 executives in the sample reveals that the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average (see table below).</p>
 <pre class="r"><code># Summary Statistics of salary by gender
 favstats (experience ~ gender, data=omega)</code></pre>
 <pre><code>##   gender min    Q1 median   Q3 max  mean    sd  n missing
@@ -156,8 +157,7 @@ null_exp</code></pre>
 </div>
 <div id="relationship-salary---experience" class="section level2">
 <h2>Relationship Salary - Experience ?</h2>
-<p>Someone at the meeting argues that clearly, a more thorough analysis of the relationship between salary and experience is required before any conclusion can be drawn about whether there is any gender-based salary discrimination in the company.</p>
-<p>We can analyse the relationship between salary and experience using a scatterplot to visually inspect the data.</p>
+<p>Now, We can analyse the relationship between salary and experience using a scatterplot to visually inspect the data.</p>
 <pre class="r"><code>ggplot(omega, aes(x = experience, y = salary, color = gender)) +
   geom_point(size = 2) +
   labs(title = &quot;Salary and experience are positively correlated&quot;,
@@ -172,5 +172,5 @@ null_exp</code></pre>
   ggpairs(aes(colour=gender, alpha = 0.3))+
   theme_bw()</code></pre>
 <p><img src="index_files/figure-html/ggpairs-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>The salary vs experience scatterplot shows a clear positive correlation between salary and experience for both male and female. Therefore from the data available it is impossible to infer if difference in salary is caused by discrimination or difference in experience. We would need to create a regression model controlling for experience in order to infer the true effect of sex on salary.</p>
+<p>The salary vs experience scatterplot shows a clear positive correlation between salary and experience for both male and female. Therefore from the data available it is impossible to infer if difference in salary is caused by discrimination or difference in experience. Hence, I suggest for further researchs to create a regression model controlling for experience in order to infer the true effect of sex on salary.</p>
 </div>

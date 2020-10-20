@@ -11,7 +11,6 @@ slug: me
 title: About me
 ---
 
-# This is me
 
 Hello, my name is Juan Sebastian Vargas. I'm a recently graduated of Mechanical and Industrial Engineering from Los Andes University, Colombia. My parents are my biggest proud and my family my biggest motivation. 
 
@@ -25,12 +24,12 @@ If you have never travel to Colombia, please do it. Colombia is wonderful countr
 
 ## Tatacoa Desert - Huila
 
-![Tatacoa Desert](https://images.app.goo.gl/dt7W1HLfRSiZ55Fz8)
+![Tatacoa Desert](https://upload.wikimedia.org/wikipedia/commons/1/1c/Desierto_de_La_Tatacoa.jpg)
 
 ## Caño Cristales - Meta
 
-![Caño Cristales](https://images.app.goo.gl/eSquFHnWjvGhuS887)
+![Caño Cristales](https://assets.atlasobscura.com/media/W1siZiIsInVwbG9hZHMvcGxhY2VfaW1hZ2VzLzI0OTFmMDRkZDI1MGI5MzRlZF9DQU7Mg09fQ1JJU1RBTEVTX-KAk19MT1NfT0NIT1NfMDEuanBnIl0sWyJwIiwiY29udmVydCIsIiJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA4MSAtYXV0by1vcmllbnQiXSxbInAiLCJ0aHVtYiIsIjc4MHg1MjAjIl1d/CAÑO_CRISTALES_–_LOS_OCHOS_01.jpg)
 
 ## Cartagena - Bolivar
 
-![Caño Cristales](https://images.app.goo.gl/V4UafhKp7ozC6Yeg6)
+![Caño Cristales](https://www.globeguide.ca/wp-content/uploads/2014/12/Cartagena-Colombia-scaled.jpg)

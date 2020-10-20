@@ -48,22 +48,24 @@ library(tidyquant)
 ```
 
 
-At the last board meeting of Omega Group Plc., the headquarters of a large multinational company, the issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted. 
+At the last board meeting of [Omega Group Plc.](https://www.omegaplc.co.uk), the headquarters of a large multinational company, the issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted. 
 
-You are asked to carry out the analysis. The objective is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor. 
+The objective of this analysis is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor. 
 
 ## Loading the data
 
+First, we load the data from the csv file.
 
 ```{r load_omega_data}
 omega <- read_csv(here::here("content/projects/salary/data", "omega.csv"))
 glimpse(omega) # examine the data frame
 ```
 
+As you can see, there are three variables in the data set: salary, gender and experience.
+
 ## Relationship Salary - Gender ?
 
-The data frame `omega`  contains the salaries for the sample of 50 executives in the company. 
-We can calculate summary statistics on salary by gender. 
+The data frame `omega`  contains the salaries for the sample of 50 executives in the company. We can calculate summary statistics on salary by gender. 
 
 ```{r, confint_single_valiables}
 # Summary Statistics of salary by gender
@@ -88,7 +90,7 @@ my_omega
 
 ```
 
-As we can see from the data above the confidence intervals for male and female do not overlap. This means that there is a statistically difference between the salary of men and women at Omega.
+As we can see from the data the mean salary for men and women is 73.239 and 64.542 USD per year respectively. Also, is important to point out that the confidence intervals for male and female do not overlap. This means that there is a statistically difference between the salary of men and women at Omega.
 
 We can also run a hypothesis testing, assuming as a null hypothesis that the mean difference in salaries is zero, or that, on average, men and women make the same amount of money. 
 
@@ -117,7 +119,7 @@ Our p-value is extremely small (close to 0). Therefore, we can reject the null h
 
 ## Relationship Experience - Gender?
 
-At the board meeting, someone raised the issue that there was indeed a substantial difference between male and female salaries, but that this was attributable to other reasons such as differences in experience. A questionnaire send out to the 50 executives in the sample reveals that the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average (see table below).
+However, is important to understand if the results present above were attributable to other reasons such as differences in experience. A questionnaire send out to the 50 executives in the sample reveals that the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average (see table below).
 
 ```{r, experience_stats}
 # Summary Statistics of salary by gender
@@ -168,9 +170,7 @@ Our p-value is extremely small (close to 0). Therefore, we can reject the null h
 
 ## Relationship Salary - Experience ?
 
-Someone at the meeting argues that clearly, a more thorough analysis of the relationship between salary and experience is required before any conclusion can be drawn about whether there is any gender-based salary discrimination in the company.
-
-We can analyse the relationship between salary and experience using a scatterplot to visually inspect the data.
+Now, We can analyse the relationship between salary and experience using a scatterplot to visually inspect the data.
 
 
 ```{r, salary_exp_scatter}
@@ -192,4 +192,4 @@ omega %>%
   theme_bw()
 ```
 
-The salary vs experience scatterplot shows a clear positive correlation between salary and experience for both male and female. Therefore from the data available it is impossible to infer if difference in salary is caused by discrimination or difference in experience. We would need to create a regression model controlling for experience in order to infer the true effect of sex on salary.
+The salary vs experience scatterplot shows a clear positive correlation between salary and experience for both male and female. Therefore from the data available it is impossible to infer if difference in salary is caused by discrimination or difference in experience. Hence, I suggest for further researchs to create a regression model controlling for experience in order to infer the true effect of sex on salary.

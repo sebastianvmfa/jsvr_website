@@ -48,7 +48,7 @@ library(tidyquant)
 ```
 
 
-If we wanted to study climate change, we can find data on the *Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies* in the Northern Hemisphere at [NASA's Goddard Institute for Space Studies](https://data.giss.nasa.gov/gistemp). The [tabular data of temperature anomalies can be found here](https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.txt)
+If you wanted to study climate change, you can find data on the *Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies* in the Northern Hemisphere at [NASA's Goddard Institute for Space Studies](https://data.giss.nasa.gov/gistemp). The [tabular data of temperature anomalies can be found here](https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.txt)
 
 To define temperature anomalies you need to have a reference, or base, period which NASA clearly states that it is the period between 1951-1980.
 
@@ -60,6 +60,8 @@ weather <-
            na = "***")
 
 ```
+
+After loading the data, we proceed to examine the data frame.
 
 ```{r tidyweather}
 #tidy data
@@ -73,9 +75,11 @@ tidyweather <- weather %>%
 glimpse(tidyweather)
 ```
 
+As shown in the tables above, there are three columns: year, month and delta of the temperature.
+
 ## Plotting Information
 
-Let us plot the data using a time-series scatter plot, and add a trendline. 
+Let us plot the data using a time-series scatter plot, and add a trendline to see if there is a tendency in the weather anomalies throughout the years.
 
 ```{r scatter_plot}
 #create a new variable "date" to ensure our plot is in chronological order
@@ -94,7 +98,7 @@ ggplot(tidyweather, aes(x=date, y = delta))+
 
 ```
 
-Is the effect of increasing temperature more pronounced in some months?  
+As shown in the graph above, there is a clear upward tendency over the years. However, it will be better to analize the effect of increasing temperature by months.
 
 ```{r facet_wrap}
 #ordering by month the dataset
@@ -113,7 +117,7 @@ ggplot(tidyweather, aes(x = date, y = delta)) +
 ```
 
 
-It is sometimes useful to group data into different time periods to study historical data. 
+However, looking at the graph there is no clear differences between months. However, during february and march we evidence the highest incrase over the time. Therefore, we decided to group data into different time periods. 
 
 
 ```{r intervals}
@@ -145,7 +149,7 @@ ggplot(comparison, aes(x=delta, fill=interval))+
 
 ```
 
-So far, we have been working with monthly anomalies. However, we might be interested in average annual anomalies. We can do this by using `group_by()` and `summarise()`, followed by a scatter plot to display the result. 
+By analyzing the graph we can see that the more the time interval comes closer to the present, the more to the right is the delta distribution. So far, we have been working with monthly anomalies. However, we might be interested in average annual anomalies. We can do this by using `group_by()` and `summarise()`, followed by a scatter plot to display the result. 
 
 ```{r averaging}
 
@@ -173,6 +177,7 @@ ggplot(average_annual_anomaly, aes(x= Year, y= annual_average_delta))+
 
 ```
 
+As you can see in this final plot, there is a clear tendency on the data over the years. The weather anomalyes have been increasing since 1980, reaching an incresing temperature of 1 celsius degree. If we continue this tendency in less than 10 years we can reach a delta of 2 degrees, which will be really dangerous for the life in the earth. 
 
 ## Confidence Interval for `delta`
 
@@ -200,32 +205,10 @@ formula_ci <- comparison %>%
 
 #print out formula_CI
 formula_ci %>% 
-  select(mean_delta, sd_delta, count, se_delta, CI_lower, CI_upper)
+  select(mean_delta, sd_delta, count, se_delta, CI_lower, CI_upper) %>% 
+  kable %>% 
+  kable_styling()
 ```
 
 
-```{r, calculate_CI_using_bootstrap}
-# use the infer package to construct a 95% CI for delta
-library(infer)  #include this library in the loadlibraries section
-set.seed(1234)
-
-bootstrap_comparison <- comparison %>% 
-  # choose the interval 2011-present
-  filter(interval == "2011-present", !is.na(delta)) %>% 
-  #variable of interest
-  specify(response = delta) %>% 
-  #bootstrap sample
-  generate(reps = 1000, type = "bootstrap") %>% 
-  #calculate mean of sample
-  calculate(stat = "mean")
-  
-#get confidence interval
-confidence_interval <- bootstrap_comparison %>% 
-  get_ci(level = 0.95, type = "percentile")
-  
-#print confidence interval
-confidence_interval
-
-```
-
-The first and third exhibit - weather anomalies and average yearly anomalies - demonstrate how temperatures have changed for the past 140 years. It shows that temperatures, during this period, have been gradually increasing. During the period, the difference of temperatures between the actual and the base period ranged from around -0.2 to about +1.1 degrees, showing a sharper increase from 1970 onwards. The second exhibit displays that although there are some slight disparities across months, the trendline is very similar for all.  The third exhibit portraits a similar conclusion. Through the density plot function, it is possible to notice that each curve is repetitively shifting to the right, i.e. the difference between period’s temperatures and base period’s have been increasing. Lastly, the confidence intervals showcase that, on average, the temperature is approximately +0.966 degrees than the temperature of the base period. Additionally, the data allows us to claim that under a 95% confidence interval the values of delta will range between (+0.923 and +1.01).
+Lastly, the confidence intervals showcase that, on average, the temperature is approximately +0.966 degrees than the temperature of the base period. Additionally, the data allows us to claim that under a 95% confidence interval the values of delta will range between (+0.923 and +1.01). Hence, we must worry about climate change and how we can reduce it significantly. 

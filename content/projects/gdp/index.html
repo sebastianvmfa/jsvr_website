@@ -70,7 +70,7 @@ glimpse(tidy_GDP_data) #Eximine the data</code></pre>
 ## $ GDP       &lt;dbl&gt; 7.99, 7.68, 7.36, 7.90, 8.18, 8.45, 8.82, 7.87, 8.35, 8.59,…</code></pre>
 <pre class="r"><code># List of 3 countries oof interest
 country_list &lt;- c(&quot;Colombia&quot;)</code></pre>
-<p>As shown above, the new data frame has 5 columns only, instead of 51 as the original data. Then, we graph the GDP components for each of the countries of interest. The GDP is compound by exports, government expenditure, gross capital formation, household expenditure and imports.</p>
+<p>As shown above, the new data frame has 5 columns only, instead of 51 as the original data. Then, we graph the GDP components for our country of interest. The GDP is compound by exports, government expenditure, gross capital formation, household expenditure and imports.</p>
 <pre class="r"><code>indicator_list &lt;- c(&quot;Gross capital formation&quot;, #List of indicators who compound the GDP
                     &quot;Exports&quot;, 
                     &quot;Government expenditure&quot;, 
@@ -91,7 +91,7 @@ ggplot(my_list, aes(x = Year, y = GDP, colour = Indicator))  +
     theme(legend.position = &quot;right&quot;, plot.title = element_text(size = 20)) + 
     NULL</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p>As shown in the graph above, the household expenditure is the biggest component of GDP over the years, while exports is the smaller component for the Colombian economy. Moreover, household expenditure increase sharply in the last 30 years. On the other hand, the remaining four variables has a similar value and raising tendency over the time for all the countries evaluated.</p>
+<p>As shown in the graph above, the household expenditure is the biggest component of GDP over the years, while exports is the smaller component for the Colombian economy. Moreover, household expenditure increase sharply in the last 30 years. On the other hand, the remaining four variables has a similar value and raising tendency over the time.</p>
 <p>Secondly, recall that GDP is the sum of Household Expenditure (Consumption <em>C</em>), Gross Capital Formation (business investment <em>I</em>), Government Expenditure (G) and Net Exports (exports - imports). In our data frame we have an indicator <code>Gross Domestic Product (GDP)</code> that has this calculation, but for analysis purposes we will estimate this indicator and compare it with the value given.</p>
 <pre class="r"><code>my_list_2 &lt;- spread(tidy_GDP_data, Indicator, GDP) %&gt;% #Convert indicator names to columns
   mutate(GDP_calculate = `Household expenditure` + #Estimate the GDP by hand
@@ -112,4 +112,4 @@ ggplot(my_list_2, aes(x = Year, y = percentage_difference)) +
     scale_y_continuous(labels = scales::percent) +
     NULL</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" />
-This graph shows the percentage of difference between the GDP calculated and the GDP given, you can observe that for Colombia the percentage of difference is negative for the first 20 years, i.e., the GDP calculated for Colombia is above the GDP given in the data. However, for the last 10 years, the difference is near to zero probably because the governments of each country made better quality estimations.</p>
+This graph shows the percentage of difference between the GDP calculated and the GDP given, you can observe that for Colombia the percentage of difference is negative for the first 20 years, i.e., the GDP calculated for Colombia is above the GDP given in the data. However, for the last 10 years, the difference is near to zero probably because the Colombian government is making better quality estimations.</p>

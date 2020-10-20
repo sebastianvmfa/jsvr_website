@@ -109,7 +109,7 @@ glimpse(tidy_GDP_data) #Eximine the data
 country_list <- c("Colombia")
 ```
 
-As shown above, the new data frame has 5 columns only, instead of 51 as the original data. Then, we graph the GDP components for each of the countries of interest. The GDP is compound by exports, government expenditure, gross capital formation, household expenditure and imports. 
+As shown above, the new data frame has 5 columns only, instead of 51 as the original data. Then, we graph the GDP components for our country of interest. The GDP is compound by exports, government expenditure, gross capital formation, household expenditure and imports. 
 
 ```{r}
 indicator_list <- c("Gross capital formation", #List of indicators who compound the GDP
@@ -135,7 +135,7 @@ ggplot(my_list, aes(x = Year, y = GDP, colour = Indicator))  +
 
 ```
 
-As shown in the graph above, the household expenditure is the biggest component of GDP over the years, while exports is the smaller component for the Colombian economy. Moreover, household expenditure increase sharply in the last 30 years. On the other hand, the remaining four variables has a similar value and raising tendency over the time for all the countries evaluated. 
+As shown in the graph above, the household expenditure is the biggest component of GDP over the years, while exports is the smaller component for the Colombian economy. Moreover, household expenditure increase sharply in the last 30 years. On the other hand, the remaining four variables has a similar value and raising tendency over the time.
 
 Secondly, recall that GDP is the sum of Household Expenditure (Consumption *C*), Gross Capital Formation (business investment *I*), Government Expenditure (G) and Net Exports (exports - imports). In our data frame we have an indicator `Gross Domestic Product (GDP)` that has this calculation, but for analysis purposes we will estimate this indicator and compare it with the value given.
 
@@ -160,5 +160,5 @@ ggplot(my_list_2, aes(x = Year, y = percentage_difference)) +
     NULL
   
 ```
-This graph shows the percentage of difference between the GDP calculated and the GDP given, you can observe that for Colombia the percentage of difference is negative for the first 20 years, i.e., the GDP calculated for Colombia is above the GDP given in the data. However, for the last 10 years, the difference is near to zero probably because the governments of each country made better quality estimations.
+This graph shows the percentage of difference between the GDP calculated and the GDP given, you can observe that for Colombia the percentage of difference is negative for the first 20 years, i.e., the GDP calculated for Colombia is above the GDP given in the data. However, for the last 10 years, the difference is near to zero probably because the Colombian government is making better quality estimations.
 
