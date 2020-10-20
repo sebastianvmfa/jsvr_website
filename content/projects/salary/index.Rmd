@@ -2,7 +2,7 @@
 title: "Do men earn more than women?"
 author: ""
 subtitle: "Statistical analysis"
-image: "paygap.jpg"
+image: paygap.jpg
 date: "`r Sys.Date()`"
 output:
   html_document:
