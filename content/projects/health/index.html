@@ -287,7 +287,7 @@ ggplot(data_tidy, mapping = aes(x=weight)) +
           plot.subtitle = element_text(size = 15),
           axis.title = element_text(size = 10),
           axis.text = element_text(size = 10))</code></pre>
-<p><img src="/projects/health/health_files/figure-html/eda_on_weight-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="index_files/figure-html/eda_on_weight-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Next, we obtained the main statistics for the weight using the <code>summary</code> function:</p>
 <pre class="r"><code>#computing statistics
 summary(data_tidy$weight)</code></pre>
@@ -307,7 +307,7 @@ ggplot(data_tidy, mapping = aes(x = weight, y = physically_active_7d))+
   theme(plot.title = element_text(family = &quot;Times New Roman&quot;, face = &quot;bold&quot;, size = (18)),
           axis.title = element_text(family = &quot;Times New Roman&quot;, size = (10)),
           axis.text = element_text(family = &quot;Times New Roman&quot;, size = (10)))</code></pre>
-<p><img src="/projects/health/health_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>However, looking at the graph there is no clear relationship between these two variables, probably for the multimodal distribution that <code>physically_active_7d</code> has.Therefore, we decide to create a new variable <code>physical_3plus</code>, which will be <code>yes</code> if they are physically active for at least 3 days a week, and <code>no</code> otherwise.</p>
 <pre class="r"><code>yrbss &lt;- yrbss %&gt;% 
   #Create a new variable call physical_3plus to know if they are physically active for at least 3 days a week.
@@ -366,7 +366,7 @@ yrbss_boxplot &lt;- yrbss %&gt;%
   NULL
 
 yrbss_boxplot</code></pre>
-<p><img src="/projects/health/health_files/figure-html/boxplot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="index_files/figure-html/boxplot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>However, by looking at the graph above students who exercise more are heavier which could be due to the fact of the higher density and weight of muscle.</p>
 </div>
 <div id="confidence-interval" class="section level2">
@@ -431,13 +431,13 @@ obs_diff &lt;- yrbss %&gt;%
   geom_histogram() +
   labs(title = &quot;Null Distribution Histogram&quot;) +
   theme(plot.title = element_text(face = &quot;bold&quot;, size = 20))</code></pre>
-<p><img src="/projects/health/health_files/figure-html/unnamed-chunk-11-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Now that the test is initialized and the null distribution formed, we can visualise to see how many of these null permutations have a difference of at least <code>obs_stat</code> of 1.77?</p>
 <p>We can also calculate the p-value for our hypothesis test using the function <code>infer::get_p_value()</code>.</p>
 <pre class="r"><code>null_dist %&gt;% visualize() +
   shade_p_value(obs_stat = obs_diff, direction = &quot;two-sided&quot;) + 
   theme(plot.title = element_text(face = &quot;bold&quot;, size = 20))</code></pre>
-<p><img src="/projects/health/health_files/figure-html/unnamed-chunk-12-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="648" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>null_dist %&gt;%
   get_p_value(obs_stat = obs_diff, direction = &quot;two_sided&quot;) </code></pre>
 <pre><code>## # A tibble: 1 x 1
