@@ -20,7 +20,7 @@ disqusShortname = ""
 
   # Provide your metadata here.
   name = "Juan Sebastian Vargas Rivera"
-  description = "MFA 2021 Student"
+  description = "MFA 2021 Student, Mechanical and Industrial Engineer, Colombian and Coffee Lover"
 
   # Link custom assets relative to /static
   custom_css = []
@@ -37,8 +37,8 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Forty"
-    subtitle = "By HTML5 Up"
+    title = "Juan Sebastian Vargas Rivera"
+    subtitle = "MFA 2021 Student"
     menu = "Menu"
     # Optional logo as brand stored in img/
     # logo = "logo.png"
@@ -55,9 +55,9 @@ disqusShortname = ""
       name = "Generic Blog"
       url = "blogs/ipsum"
 
-    [[params.navigation.links]]
-      name = "Elements"
-      url = "elements.html"
+    #[[params.navigation.links]]
+    #  name = "Elements"
+    #  url = "elements.html"
 
     # Add custom links here by uncommenting code below. To remove links just delete
     # the [[params.navigation.links]] map associated with that link. Copy and paste
@@ -82,7 +82,8 @@ disqusShortname = ""
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
     title = "Hi, my name is Sebastian"
-    subtitle = "A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP\nAND RELEASED UNDER THE CREATIVE COMMONS."
+    subtitle = "THIS IS A BRIEF DESCRIPTION ABOUT ME AND SOME PROJECTS I DEVELOPED WITH MY STUDY GROUP"
+    image = "banner.jpg"
     buttonText = "Get Started"
 
 
