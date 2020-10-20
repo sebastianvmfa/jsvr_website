@@ -94,7 +94,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "About me"
       subtitle = "My experience"
-      image = "graduation.jpg"
+      image = "cv.jpg"
       url = "blogs/me"
 
     [[params.tiles.showcase]]
@@ -107,7 +107,7 @@ disqusShortname = ""
       title = "Do men earn more than women?"
       subtitle = "Statistical analysis"
       image = "salary.jpg"
-      url = "blogs"
+      url = "projects/salary"
 
     [[params.tiles.showcase]]
       title = "Temperature Anomalies and Climate Change"
