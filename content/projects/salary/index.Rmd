@@ -60,7 +60,7 @@ You are asked to carry out the analysis. The objective is to find out whether th
 
 
 ```{r load_omega_data}
-omega <- read_csv(here::here("data", "omega.csv"))
+omega <- read_csv(here::here("content/projects/salary/data", "omega.csv"))
 glimpse(omega) # examine the data frame
 ```
 
