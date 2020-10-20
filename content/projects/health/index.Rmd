@@ -1,6 +1,7 @@
 ---
 title: "What about Youth's Health?"
-author: "Weight vs Excercise Analysis"
+author: ""
+image: teenagers.jpg
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -46,8 +47,6 @@ library(openintro)
 library(tidyquant)
 ```
 
-
-# Youth Risk Behavior Surveillance
 
 Along this work we will analyze health patters from high schoolers (9th through 12th grade) using the data from the [Youth Risk Behavior Surveillance System (YRBSS)](https://www.cdc.gov/healthyyouth/data/yrbs/index.htm) survey. 
 

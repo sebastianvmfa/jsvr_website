@@ -1,0 +1,85 @@
+---
+title: "COVID-19 Morbidity Analysis"
+author: ""
+image: covid.jpg
+date: "2020-10-20"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+
+
+<p>Let us revisit the <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf">CDC Covid-19 Case Surveillance Data</a>.</p>
+<pre class="r"><code># file contains 11 variables and 3.66m rows and is well over 380Mb. 
+# It will take time to download
+
+# URL link to CDC to download data
+url &lt;- &quot;https://data.cdc.gov/api/views/vbim-akqf/rows.csv?accessType=DOWNLOAD&quot;
+
+covid_data &lt;- vroom::vroom(url) %&gt;% # If vroom::vroom(url) doesn&#39;t work, use read_csv(url)
+  clean_names()</code></pre>
+<p>Given the data we have, I would like you to produce two graphs that show death % rate:
+1. by age group, sex, and whether the patient had co-morbidities or not</p>
+<pre class="r"><code>#create dataset for Covid death % by age group, sex and presence of co-morbidities
+covid_data_comorbidities &lt;- covid_data %&gt;% 
+#clean the dataset to get rid of the missing values 
+  filter(sex %in% c(&quot;Male&quot;, &quot;Female&quot;),
+         !age_group %in% c(&quot;Unknown&quot;, NA), 
+         medcond_yn %in% c(&quot;Yes&quot;, &quot;No&quot;), 
+         death_yn %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;%
+#group the variables of interest
+  group_by(sex, age_group, medcond_yn) %&gt;% 
+#calculate the death rate
+  summarise(death = sum(death_yn == &quot;Yes&quot;), total = n()) %&gt;% 
+  mutate(death_rate = (death / total * 100)) %&gt;% 
+  select(sex, age_group, medcond_yn, death_rate)</code></pre>
+<pre class="r"><code>library(scales) #include this library in the loadlibraries section
+
+#plot the covid_data_comorbitities dataset
+ggplot(covid_data_comorbidities, aes(x = death_rate, y = age_group)) +
+#create graph in blue with digit and using facet_grid
+  geom_col(fill = &quot;blue&quot;) + 
+  geom_text(aes(label = round(death_rate, digits = 1)), hjust = -0.1, size = 3) +
+  facet_grid(medcond_yn~sex, as.table = FALSE, labeller = labeller(medcond_yn = c(&quot;Yes&quot; = &quot;With Comorbities&quot;, &quot;No&quot; = &quot;Without Comorbities&quot;))) + 
+#include title, source, theme and label
+  labs(title = &quot;Covid death % by age group, sex and presence of co-morbidities&quot;, x = &quot;&quot;, y = &quot;&quot;, caption = &quot;Source: CDC&quot;) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  theme_bw() +
+  theme(plot.title = element_text(size = 11)) +
+  NULL</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="648" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>by age group, sex, and whether the patient was admited to Intensive Care Unit (ICU) or not.</li>
+</ol>
+<pre class="r"><code>#create dataset for Covid death % by age group, sex and whether patient was admitted to ICU
+covid_data_icu &lt;- covid_data %&gt;%
+#clean the dataset to get rid of the missing values 
+  filter(sex %in% c(&quot;Male&quot;, &quot;Female&quot;), 
+         !age_group %in% c(&quot;Unknown&quot;, NA), 
+         icu_yn %in% c(&quot;Yes&quot;, &quot;No&quot;), 
+         death_yn %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;%
+#group the variables of interest
+  group_by(sex, age_group, icu_yn) %&gt;% 
+#calculate the death rate
+  summarise(death = sum(death_yn == &quot;Yes&quot;), total = n()) %&gt;% 
+  mutate(death_rate = (death / total * 100)) %&gt;% 
+  select(sex, age_group, icu_yn, death_rate)</code></pre>
+<pre class="r"><code>#plot the covid_data_icu dataset
+ggplot(covid_data_icu, aes(x = death_rate, y = age_group)) +
+#create graph in salmon with digit and using facet_grid
+  geom_col(fill = &quot;salmon&quot;) + 
+  geom_text(aes(label = round(death_rate, digits = 1)), hjust = -0.1, size = 3) +
+  facet_grid(icu_yn~sex, as.table = FALSE, labeller = labeller(icu_yn = c(&quot;Yes&quot; = &quot;Admitted to ICU&quot;, &quot;No&quot; = &quot;No ICU&quot;))) + 
+#include title, source, theme and label
+  labs(title = &quot;Covid death % by age group, sex and whether patient was admitted to ICU&quot;, x = &quot;&quot;, y = &quot;&quot;, caption = &quot;Source: CDC&quot;) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  theme_bw() +
+  theme(plot.title = element_text(size = 11)) +
+  NULL</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="648" style="display: block; margin: auto;" /></p>
