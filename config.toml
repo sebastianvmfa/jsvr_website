@@ -144,7 +144,7 @@ disqusShortname = ""
     here I present some of the analysis which were the most interesting for me.
     Hope you enjoy them."""
     buttonText = "Get Started"
-    url = "blogs"
+    url = "projects"
 
 
   # Contact section
