@@ -95,37 +95,37 @@ disqusShortname = ""
       title = "Curriculum Vitae"
       subtitle = "My experience"
       image = "cv.jpg"
-      url = "blogs/cv"
+      url = "blogs"
 
     [[params.tiles.showcase]]
       title = "What about Youth's Health?"
       subtitle = "Weight vs Excercise "
       image = "exercise.jpg"
-      url = "blogs/health"
+      url = "blogs"
 
     [[params.tiles.showcase]]
       title = "Do men earn more than women?"
       subtitle = "Statistical analysis"
-      image = "wage.jpg"
-      url = "blogs/salary"
+      image = "salary.jpg"
+      url = "blogs"
 
     [[params.tiles.showcase]]
       title = "Temperature Anomalies and Climate Change"
       subtitle = "Is there any relationship?"
       image = "temperature.jpg"
-      url = "blogs/climate"
+      url = "blogs"
 
     [[params.tiles.showcase]]
       title = "COVID-19"
       subtitle = "Morbidity analysis"
       image = "covid19.jpg"
-      url = "blogs/covid19"
+      url = "blogs"
 
     [[params.tiles.showcase]]
       title = "GDP analysis"
       subtitle = "Colombia"
       image = "colombia.jpg"
-      url = "blogs/gdp"
+      url = "blogs"
     # You can make more showcases by copy and pasting the code above
 
   [params.blog]
